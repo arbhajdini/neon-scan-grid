@@ -165,229 +165,223 @@ const GoogleDorking = () => {
       {/* Header */}
       <div className="text-center">
         <h1 className="text-4xl font-bold cyber-glow mb-2">GOOGLE DORKING</h1>
-        <p className="text-primary/70">Advanced search operators for OSINT reconnaissance</p>
+        <p className="text-muted-foreground">Advanced search operators for OSINT reconnaissance</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Manual Dork Builder */}
-        <div className="space-y-6">
-          <div className="cyber-card">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold cyber-glow flex items-center">
-                <Settings className="mr-2" size={24} />
-                Manual Dork Builder
-              </h2>
-              <button
-                onClick={resetManualDork}
-                className="cyber-button text-sm"
-              >
-                Reset
-              </button>
-            </div>
+      {/* Manual Dork Builder - Top Half */}
+      <div className="cyber-card">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold cyber-glow flex items-center">
+            <Settings className="mr-2" size={24} />
+            Manual Dork Builder
+          </h2>
+          <button
+            onClick={resetManualDork}
+            className="cyber-button text-sm"
+          >
+            Reset
+          </button>
+        </div>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">Site:</label>
-                <input
-                  type="text"
-                  value={manualDork.site}
-                  onChange={(e) => setManualDork({...manualDork, site: e.target.value})}
-                  placeholder="example.com"
-                  className="cyber-input"
-                />
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label className="block text-sm font-medium mb-2">Site:</label>
+            <input
+              type="text"
+              value={manualDork.site}
+              onChange={(e) => setManualDork({...manualDork, site: e.target.value})}
+              placeholder="example.com"
+              className="cyber-input"
+            />
+          </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">In Title:</label>
-                <input
-                  type="text"
-                  value={manualDork.intitle}
-                  onChange={(e) => setManualDork({...manualDork, intitle: e.target.value})}
-                  placeholder="admin login"
-                  className="cyber-input"
-                />
-              </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">In Title:</label>
+            <input
+              type="text"
+              value={manualDork.intitle}
+              onChange={(e) => setManualDork({...manualDork, intitle: e.target.value})}
+              placeholder="admin login"
+              className="cyber-input"
+            />
+          </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">In URL:</label>
-                <input
-                  type="text"
-                  value={manualDork.inurl}
-                  onChange={(e) => setManualDork({...manualDork, inurl: e.target.value})}
-                  placeholder="admin"
-                  className="cyber-input"
-                />
-              </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">In URL:</label>
+            <input
+              type="text"
+              value={manualDork.inurl}
+              onChange={(e) => setManualDork({...manualDork, inurl: e.target.value})}
+              placeholder="admin"
+              className="cyber-input"
+            />
+          </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">File Type:</label>
-                <input
-                  type="text"
-                  value={manualDork.filetype}
-                  onChange={(e) => setManualDork({...manualDork, filetype: e.target.value})}
-                  placeholder="pdf"
-                  className="cyber-input"
-                />
-              </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">File Type:</label>
+            <input
+              type="text"
+              value={manualDork.filetype}
+              onChange={(e) => setManualDork({...manualDork, filetype: e.target.value})}
+              placeholder="pdf"
+              className="cyber-input"
+            />
+          </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">In Text:</label>
-                <input
-                  type="text"
-                  value={manualDork.intext}
-                  onChange={(e) => setManualDork({...manualDork, intext: e.target.value})}
-                  placeholder="password"
-                  className="cyber-input"
-                />
-              </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">In Text:</label>
+            <input
+              type="text"
+              value={manualDork.intext}
+              onChange={(e) => setManualDork({...manualDork, intext: e.target.value})}
+              placeholder="password"
+              className="cyber-input"
+            />
+          </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">Exclude:</label>
-                <input
-                  type="text"
-                  value={manualDork.exclude}
-                  onChange={(e) => setManualDork({...manualDork, exclude: e.target.value})}
-                  placeholder="site:example.com"
-                  className="cyber-input"
-                />
-              </div>
-            </div>
-
-            {/* Live Preview */}
-            <div className="mt-6">
-              <label className="block text-sm font-medium mb-2">Live Preview:</label>
-              <div className="cyber-input bg-terminal-bg font-mono text-sm min-h-[60px] p-3">
-                {livePreview || 'Your dork will appear here...'}
-              </div>
-              
-              <div className="flex space-x-2 mt-4">
-                <button
-                  onClick={() => copyToClipboard(livePreview)}
-                  disabled={!livePreview}
-                  className="cyber-button flex items-center space-x-2 flex-1"
-                >
-                  <Copy size={16} />
-                  <span>Copy</span>
-                </button>
-                <button
-                  onClick={() => searchOnGoogle(livePreview)}
-                  disabled={!livePreview}
-                  className="cyber-button flex items-center space-x-2 flex-1"
-                >
-                  <ExternalLink size={16} />
-                  <span>Search</span>
-                </button>
-              </div>
-            </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Exclude:</label>
+            <input
+              type="text"
+              value={manualDork.exclude}
+              onChange={(e) => setManualDork({...manualDork, exclude: e.target.value})}
+              placeholder="site:example.com"
+              className="cyber-input"
+            />
           </div>
         </div>
 
-        {/* Automatic Dork Generator */}
-        <div className="space-y-6">
-          <div className="cyber-card">
-            <h2 className="text-2xl font-bold cyber-glow mb-6 flex items-center">
-              <Zap className="mr-2" size={24} />
-              Automatic Dork Generator
-            </h2>
+        {/* Live Preview */}
+        <div>
+          <label className="block text-sm font-medium mb-2 accent-glow">Live Preview:</label>
+          <div className="cyber-input bg-muted font-mono text-sm min-h-[60px] p-4 mb-4">
+            {livePreview || 'Your dork will appear here...'}
+          </div>
+          
+          <div className="flex space-x-2">
+            <button
+              onClick={() => copyToClipboard(livePreview)}
+              disabled={!livePreview}
+              className="cyber-button flex items-center space-x-2 flex-1"
+            >
+              <Copy size={16} />
+              <span>Copy</span>
+            </button>
+            <button
+              onClick={() => searchOnGoogle(livePreview)}
+              disabled={!livePreview}
+              className="cyber-button flex items-center space-x-2 flex-1"
+            >
+              <ExternalLink size={16} />
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">Target (Domain or Keyword):</label>
-                <input
-                  type="text"
-                  value={targetInput}
-                  onChange={(e) => setTargetInput(e.target.value)}
-                  placeholder="example.com or keyword"
-                  className="cyber-input"
-                />
-              </div>
+      {/* Automatic Dork Generator - Bottom Half */}
+      <div className="cyber-card">
+        <h2 className="text-2xl font-bold cyber-glow mb-6 flex items-center">
+          <Zap className="mr-2" size={24} />
+          Automatic Dork Generator
+        </h2>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">Dork Category:</label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="cyber-input"
-                >
-                  <option value="">Select a category...</option>
-                  {dorkCategories.map((cat) => (
-                    <option key={cat.category} value={cat.category}>
-                      {cat.category}
-                    </option>
-                  ))}
-                </select>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label className="block text-sm font-medium mb-2">Target (Domain or Keyword):</label>
+            <input
+              type="text"
+              value={targetInput}
+              onChange={(e) => setTargetInput(e.target.value)}
+              placeholder="example.com or keyword"
+              className="cyber-input"
+            />
+          </div>
 
-              <button
-                onClick={generateDorks}
-                disabled={!selectedCategory || !targetInput.trim()}
-                className="cyber-button w-full flex items-center justify-center space-x-2"
-              >
-                <Search size={16} />
-                <span>Generate Dorks</span>
-              </button>
-            </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Dork Category:</label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="cyber-input"
+            >
+              <option value="">Select a category...</option>
+              {dorkCategories.map((cat) => (
+                <option key={cat.category} value={cat.category}>
+                  {cat.category}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-            {/* Generated Dorks */}
-            {generatedDorks.length > 0 && (
-              <div className="mt-6">
-                <h3 className="text-lg font-bold mb-4 cyber-glow">Generated Dorks:</h3>
-                <div className="space-y-2 max-h-96 overflow-y-auto">
-                  {generatedDorks.map((dork, index) => (
-                    <div key={index} className="cyber-card bg-terminal-bg">
-                      <div className="font-mono text-sm mb-2 break-all">{dork}</div>
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => copyToClipboard(dork)}
-                          className="cyber-button text-xs flex items-center space-x-1 flex-1"
-                        >
-                          <Copy size={12} />
-                          <span>Copy</span>
-                        </button>
-                        <button
-                          onClick={() => searchOnGoogle(dork)}
-                          className="cyber-button text-xs flex items-center space-x-1 flex-1"
-                        >
-                          <ExternalLink size={12} />
-                          <span>Search</span>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+        <button
+          onClick={generateDorks}
+          disabled={!selectedCategory || !targetInput.trim()}
+          className="cyber-button w-full flex items-center justify-center space-x-2 mb-6"
+        >
+          <Search size={16} />
+          <span>Generate Dorks</span>
+        </button>
+
+        {/* Generated Dorks - Horizontal Cards */}
+        {generatedDorks.length > 0 && (
+          <div className="animate-fade-in">
+            <h3 className="text-lg font-bold mb-4 accent-glow">Generated Dorks:</h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+              {generatedDorks.map((dork, index) => (
+                <div key={index} className="cyber-card bg-muted/50 p-4 animate-slide-in">
+                  <div className="font-mono text-sm mb-3 break-all text-foreground">{dork}</div>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => copyToClipboard(dork)}
+                      className="cyber-button text-xs flex items-center space-x-1 flex-1"
+                    >
+                      <Copy size={12} />
+                      <span>Copy</span>
+                    </button>
+                    <button
+                      onClick={() => searchOnGoogle(dork)}
+                      className="cyber-button text-xs flex items-center space-x-1 flex-1"
+                    >
+                      <ExternalLink size={12} />
+                      <span>Search</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Info Section */}
       <div className="cyber-card">
-        <h3 className="text-lg font-bold mb-4 cyber-glow">Google Dork Operators Reference</h3>
+        <h3 className="text-lg font-bold mb-4 purple-glow">Google Dork Operators Reference</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
           <div>
             <div className="font-bold text-primary">site:</div>
-            <div className="text-primary/70">Restrict to specific site</div>
+            <div className="text-muted-foreground">Restrict to specific site</div>
           </div>
           <div>
             <div className="font-bold text-primary">intitle:</div>
-            <div className="text-primary/70">Search in page title</div>
+            <div className="text-muted-foreground">Search in page title</div>
           </div>
           <div>
             <div className="font-bold text-primary">inurl:</div>
-            <div className="text-primary/70">Search in URL</div>
+            <div className="text-muted-foreground">Search in URL</div>
           </div>
           <div>
             <div className="font-bold text-primary">filetype:</div>
-            <div className="text-primary/70">Specific file types</div>
+            <div className="text-muted-foreground">Specific file types</div>
           </div>
           <div>
             <div className="font-bold text-primary">intext:</div>
-            <div className="text-primary/70">Search in page content</div>
+            <div className="text-muted-foreground">Search in page content</div>
           </div>
           <div>
             <div className="font-bold text-primary">-term</div>
-            <div className="text-primary/70">Exclude term</div>
+            <div className="text-muted-foreground">Exclude term</div>
           </div>
         </div>
       </div>
